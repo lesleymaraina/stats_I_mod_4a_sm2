@@ -29,6 +29,7 @@ The lecture introduces:
 - t distribution
 - t-statistics and p-values
 - one-sample, independent two-sample, and paired t tests
+
 ---
 
 ### Background
