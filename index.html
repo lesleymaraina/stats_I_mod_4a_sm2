@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="test_2_082025_files/libs/clipboard/clipboard.min.js"></script>
+<script src="test_2_082025_files/libs/quarto-html/tabby.min.js"></script>
+<script src="test_2_082025_files/libs/quarto-html/popper.min.js"></script>
+<script src="test_2_082025_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="test_2_082025_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="test_2_082025_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="test_2_082025_files/libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.33">
+
+  <meta name="author" content=" Lesley Chapman Hannah, Ph.D., M.S. College of Graduate Studies Northeast Ohio Medical University">
+  <title>Hypothesis Testing for Continuous Data</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="test_2_082025_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="test_2_082025_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="test_2_082025_files/libs/revealjs/dist/theme/quarto-2c1b5f745a11cfad616ebade4a4a7d24.css">
+  <link href="test_2_082025_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="test_2_082025_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="test_2_082025_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="test_2_082025_files/libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="test_2_082025_files/libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="test_2_082025_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h2 style="color: #2A76DD;" class="title">Hypothesis Testing for Continuous Data</h2>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div style="font-size:20px;" class="quarto-title-author-name">
+<br><br><span style="font-size:25px;"><strong>Lesley Chapman Hannah, Ph.D., M.S.</strong></span><br>College of Graduate Studies<br>Northeast Ohio Medical University 
+</div>
+</div>
+</div>
+
+</section>
+<section class="slide level2">
+
+<h3 id="lecture-overview">Lecture Overview</h3>
+<ul>
+<li>introduce the t-test framework for hypothesis testing with continuous data</li>
+</ul>
+<p>Motivation:</p>
+<ul>
+<li>many biomedical and clinical variables vary continuously across patients, including biomarker levels, tumor measurements, blood pressure, and symptom severity scores</li>
+</ul>
+<p>The lecture introduces:</p>
+<ul>
+<li>t distribution</li>
+<li>t-statistics and p-values</li>
+<li><h2 id="one-sample-independent-two-sample-and-paired-t-tests">one-sample, independent two-sample, and paired t tests</h2></li>
+</ul>
+<h3 id="background">Background</h3>
+<div style="font-size:0.76em">
+<p>As a review hypothesis tests involve:</p>
+<ul>
+<li><p>defining null and alternative hypotheses</p>
+<ul>
+<li>null hypothesis represents a proposed explanation about the population</li>
+<li>alternative hypothesis represents a competing scientific explanation suggesting the population mean is larger than the benchmark</li>
+</ul></li>
+<li><p>constructing a test statistic that summarized the stretch of evidence against the null hypothesis</p></li>
+<li><p>computing a p-value that quantifies the probability of having obtained a comparable or more extreme value of the test statistic under the null hypothesis</p></li>
+<li><p>based on the p-value we diced whether to reject the null hypothesis</p></li>
+<li><p>research often involves studying continuous variables such as: tumor volume, percent tumor reduction, circulating tumor DNA concentration, or immune-cell abundance</p></li>
+<li><p>measurements vary across patients because biological systems are inherently heterogeneous and because all sample-based measurements contain some degree of random variability</p></li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="background-1">Background</h3>
+<div style="font-size:0.76em">
+<ul>
+<li>hypothesis tests for continuous data can be used as tools to help researchers determine whether an observed difference in a sample is large enough to suggest a meaningful population-level effect rather than ordinary sampling variability alone</li>
+<li>hypothesis tests allows one to determine whether the observed difference between two continuous outcomes is large relative to the amount of variability expected across repeated samples rather than just reporting the numerical difference between two continuous outcomes</li>
+<li>different statistical tests are used depending on what researchers want to compare and how the data were collected</li>
+<li>Review: <strong>test statistic</strong> is a numerical quantity calculated from sample data that measures how far the observed estimate is from the null value after accounting for variability</li>
+<li>in order to use continuous data to find evidence against or for the null hypothesis one computes a test statistic which summarizes the extent to which our data are consistent with <span class="math inline">\(H_0\)</span></li>
+</ul>
+</div>
+</section>
+<section id="definition-t-test" class="slide level2">
+<h2>Definition : t-test</h2>
+<div style="font-size:0.76em">
+<p><code>t-test</code> : statistical approach used to compare the means of two groups of continuous measurements</p>
+<p>t-tests also account for:</p>
+<ul>
+<li><p>sampling variability</p></li>
+<li><p>sample size</p></li>
+<li><p>uncertainty in the population standard deviation</p></li>
+<li><p>continuous variables often vary across patients</p></li>
+</ul>
+<p>For example:</p>
+<ul>
+<li><p>tumor burden differs across individuals</p></li>
+<li><p>gene expression varies continuously</p></li>
+<li><p>immune activation varies in magnitude</p></li>
+<li><p>t-tests are designed to evaluate whether the observed sample mean differs enough from a hypothesized population mean to suggest a true biological effect</p></li>
+</ul>
+<p>The statistical test can be used for:</p>
+<ul>
+<li>comparing treatment groups</li>
+<li>evaluating biomarker effects</li>
+<li>testing mean biological changes</li>
+</ul>
+</div>
+</section>
+<section id="review-definition-of-a-p-value" class="slide level2">
+<h2>Review: Definition of a p-Value</h2>
+<div style="font-size:0.76em">
+<p><code>p-value</code>: probability of observing results at least as extreme as the observed data, given that the null hypothesis is true</p>
+<p>The p-value measures:</p>
+<blockquote>
+<p>how unusual the observed sample result would be if the null hypothesis were true.</p>
+</blockquote>
+<p>Small p-values indicate:</p>
+<ul>
+<li>observed data would be difficult to explain under the null model</li>
+<li>sample provides evidence against the null hypothesis</li>
+</ul>
+<p>Large p-values indicate:</p>
+<ul>
+<li>observed data are reasonably consistent with the null model</li>
+</ul>
+</div>
+</section>
+<section id="why-a-t-distribution-is-used" class="slide level2">
+<h2>Why a t Distribution Is Used</h2>
+<div style="font-size:0.76em">
+<p><code>t distribution</code> : probability distribution used to model uncertainty in standardized sample mean differences when the population standard deviation is unknown</p>
+<p>The t distribution is used because:</p>
+<ul>
+<li>the population standard deviation is unknown</li>
+<li>variability must be estimated using the sample standard deviation</li>
+</ul>
+<p>distribution accounts for:</p>
+<ul>
+<li>sampling variability</li>
+<li>uncertainty in the estimated standard deviation</li>
+<li>effects of small sample size</li>
+</ul>
+<p>Distribution key characteristics:</p>
+<ul>
+<li>symmetric and centered at 0</li>
+<li>similar in shape to the standard normal distribution</li>
+<li>assigns greater probability to more extreme values</li>
+</ul>
+<p>Note: as sample size increases:</p>
+<ul>
+<li>estimates of variability become more stable</li>
+<li>uncertainty decreases</li>
+<li>t distribution approaches the standard normal distribution</li>
+</ul>
+</div>
+</section>
+<section id="why-a-t-distribution-is-used-1" class="slide level2">
+<h2>Why a t Distribution Is Used</h2>
+<div style="font-size:0.55em">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="test_2_082025_files/figure-revealjs/unnamed-chunk-1-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Interpretation</strong></p>
+<ul>
+<li><p><code>standard normal distribution</code>: narrow distribution because the population standard deviation is treated as known</p></li>
+<li><p><code>t distribution(s)</code>: wider overall because variability is estimated from the sample data and introduces additional uncertainty</p></li>
+</ul>
+<p>This effect is strongest with small sample sizes:</p>
+<ul>
+<li><span class="math inline">\(t\)</span> distribution with small degrees of freedom <span class="math inline">\((df = 3)\)</span> has heavier tails</li>
+<li>extreme values are considered more plausible under the null hypothesis</li>
+<li>larger observed test statistics are therefore needed to produce small p-values</li>
+</ul>
+<p>As sample size increases:</p>
+<ul>
+<li>estimates of variability become more stable</li>
+<li>uncertainty decreases</li>
+<li>t distribution <span class="math inline">\((df = 30)\)</span> becomes closer to the standard normal distribution</li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="relationship-between-the-t-statistic-and-p-value">Relationship Between the t-Statistic and p-Value</h3>
+<div style="font-size:0.76em">
+<p>t-test produce both a test statistic [t-statistic] and p-value:</p>
+<ul>
+<li><p>test statistic measures distance from the null hypothesis</p></li>
+<li><p>p-value converts this distance into a probability under the null model</p>
+<ul>
+<li>measures how extreme the observed test statistic is relative to the null distribution</li>
+</ul></li>
+</ul>
+<p>Interpretation:</p>
+<ul>
+<li><p>large absolute t-statistics indicate that the observed difference is large compared with ordinary sampling variability</p>
+<p>→ stronger evidence against the null hypothesis → smaller p-values</p></li>
+<li><p>small absolute t-statistics indicate that the observed difference is similar in magnitude to ordinary sampling variability</p>
+<p>→ weaker evidence against the null hypothesis → larger p-values</p></li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="relationship-between-the-t-statistic-and-p-value-1">Relationship Between the t-Statistic and p-Value</h3>
+<div style="font-size:0.76em">
+<ul>
+<li><p>p-value is found as an area under the t distribution</p></li>
+<li><p>t distribution represents the pattern of t-statistics we would expect to see from repeated samples if the null hypothesis were true</p></li>
+</ul>
+<p>Once the observed t-statistic is determined ask:</p>
+<blockquote>
+<p>How much area is in the part of the t distribution that is as extreme as, or more extreme than, our observed t-statistic?</p>
+</blockquote>
+<ul>
+<li>area represents the p-value and location of the area depends on the alternative hypothesis</li>
+</ul>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Alternative hypothesis</th>
+<th>Scientific meaning</th>
+<th>Where the p-value area is found</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(H_A: \mu &gt; \mu_0\)</span></td>
+<td>The population mean is greater than the benchmark</td>
+<td>Area to the <strong>right</strong> of the calculated t-statistic</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(H_A: \mu &lt; \mu_0\)</span></td>
+<td>The population mean is less than the benchmark</td>
+<td>Area to the <strong>left</strong> of the calculated t-statistic</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(H_A: \mu \neq \mu_0\)</span></td>
+<td>The population mean is different from the benchmark</td>
+<td>Area in <strong>both tails</strong> beyond the observed t-statistic</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="statistical-tests-for-continuous-data">Statistical Tests for Continuous Data</h3>
+<div style="font-size:0.76em">
+<ul>
+<li>before calculating a p-value <span class="math inline">\(\rightarrow\)</span> choose t-test type based on structure of data</li>
+<li>t-test is a family of statistical methods used to evaluate questions about population means when outcomes are continuous and the population standard deviation is unknown</li>
+</ul>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Statistical test</th>
+<th>Scientific scenario</th>
+<th>Question</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>One-sample (t) test</td>
+<td>One group vs benchmark</td>
+<td>Is the population mean different from a benchmark?</td>
+</tr>
+<tr class="even">
+<td>Independent two-sample (t) test</td>
+<td>Two independent groups</td>
+<td>Are the group means different?</td>
+</tr>
+<tr class="odd">
+<td>Paired (t) test</td>
+<td>Same patients measured twice</td>
+<td>Is the average within-patient change different from 0?</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="one-tailed-t-test">One-Tailed t-Test</h3>
+<div style="font-size:0.76em">
+<ul>
+<li><strong>one-tailed t-test</strong> : hypothesis test used to determine whether a population mean or group mean differs from a reference value in one specific direction</li>
+</ul>
+<p>alternative hypothesis specifies either:</p>
+<ul>
+<li>mean is greater than the null value, or</li>
+<li>mean is less than the null value</li>
+</ul>
+<p>Upper-tailed test:</p>
+<p><span class="math inline">\(H_0 : \mu = \mu_0\)</span></p>
+<p><span class="math inline">\(H_A : \mu &gt; \mu_0\)</span></p>
+<p>Lower-tailed test:</p>
+<p><span class="math inline">\(H_0 : \mu = \mu_0\)</span></p>
+<p><span class="math inline">\(H_A : \mu &lt; \mu_0\)</span></p>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="one-tailed-t-test-example">One-Tailed t-Test: Example</h3>
+<div style="font-size:0.76em">
+<p><strong>Background</strong></p>
+<p>A clinical oncology study measures tumor reduction percentage after treatment in a group of patients.</p>
+<p>Researchers want to determine whether the average tumor reduction is greater than 0, which would suggest the treatment produces measurable tumor shrinkage on average.</p>
+<p>Determine:</p>
+<blockquote>
+<p>Does the treatment produce measurable tumor reduction on average?</p>
+</blockquote>
+<p>Where:</p>
+<p><span class="math inline">\(H_0 : \mu = \mu_0\)</span></p>
+<p><span class="math inline">\(H_A : \mu &gt; \mu_0\)</span></p>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="one-tailed-t-test-example-1">One-Tailed t-Test: Example</h3>
+<div style="font-size:0.76em">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href=""></a></span>
+<span id="cb1-3"><a href=""></a><span class="fu">set.seed</span>(<span class="dv">29</span>)</span>
+<span id="cb1-4"><a href=""></a></span>
+<span id="cb1-5"><a href=""></a>tumor_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb1-6"><a href=""></a>  <span class="at">patient_id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>,</span>
+<span id="cb1-7"><a href=""></a>  <span class="at">tumor_reduction =</span> <span class="fu">c</span>(</span>
+<span id="cb1-8"><a href=""></a>    <span class="fl">4.27</span>, <span class="fl">3.70</span>, <span class="fl">5.56</span>, <span class="fl">2.12</span>, <span class="fl">6.85</span>,</span>
+<span id="cb1-9"><a href=""></a>    <span class="fl">0.98</span>, <span class="fl">5.13</span>, <span class="fl">3.27</span>, <span class="fl">2.41</span>, <span class="fl">5.99</span>,</span>
+<span id="cb1-10"><a href=""></a>    <span class="fl">4.13</span>, <span class="fl">2.98</span>, <span class="fl">1.84</span>, <span class="fl">4.98</span>, <span class="fl">6.70</span>,</span>
+<span id="cb1-11"><a href=""></a>    <span class="fl">3.41</span>, <span class="fl">2.27</span>, <span class="fl">5.27</span>, <span class="fl">5.41</span>, <span class="fl">3.55</span></span>
+<span id="cb1-12"><a href=""></a>  )</span>
+<span id="cb1-13"><a href=""></a>)</span>
+<span id="cb1-14"><a href=""></a></span>
+<span id="cb1-15"><a href=""></a><span class="fu">head</span>(tumor_df, <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 2
+  patient_id tumor_reduction
+       &lt;int&gt;           &lt;dbl&gt;
+1          1            4.27
+2          2            3.7 
+3          3            5.56
+4          4            2.12
+5          5            6.85</code></pre>
+</div>
+</div>
+<p>Perform One-Sample t Test</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>t_result <span class="ot">&lt;-</span> <span class="fu">t.test</span>(</span>
+<span id="cb3-2"><a href=""></a>  tumor_df<span class="sc">$</span>tumor_reduction,</span>
+<span id="cb3-3"><a href=""></a>  <span class="at">mu =</span> <span class="dv">0</span>,</span>
+<span id="cb3-4"><a href=""></a>  <span class="at">alternative =</span> <span class="st">"greater"</span></span>
+<span id="cb3-5"><a href=""></a>)</span>
+<span id="cb3-6"><a href=""></a></span>
+<span id="cb3-7"><a href=""></a>t_result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    One Sample t-test
+
+data:  tumor_df$tumor_reduction
+t = 10.845, df = 19, p-value = 7.011e-10
+alternative hypothesis: true mean is greater than 0
+95 percent confidence interval:
+ 3.396723      Inf
+sample estimates:
+mean of x 
+    4.041 </code></pre>
+</div>
+</div>
+<p><strong>Code Explanation</strong></p>
+<ul>
+<li><code>t.test()</code> : performs a one-sample t test</li>
+<li><code>tumor_df$tumor_reduction</code> : supplies the observed tumor reduction values</li>
+<li><code>mu = 0</code> : defines the null hypothesis benchmark:<span class="math inline">\(H_0:μ=0\)</span></li>
+<li><code>alternative = "greater"</code> : specifies a right-tailed test:<span class="math inline">\(H_A:μ&gt;0\)</span></li>
+<li>p-value is calculated as the area to the right of the observed t-statistic in the t distribution</li>
+<li>t_result stores the test results, including the t-statistic, degrees of freedom, p-value, confidence interval, and sample mean</li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="one-tailed-t-test-example-2">One-Tailed t-Test: Example</h3>
+<div style="font-size:0.76em">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb5-2"><a href=""></a></span>
+<span id="cb5-3"><a href=""></a><span class="fu">set.seed</span>(<span class="dv">29</span>)</span>
+<span id="cb5-4"><a href=""></a></span>
+<span id="cb5-5"><a href=""></a>tumor_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb5-6"><a href=""></a>  <span class="at">patient_id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>,</span>
+<span id="cb5-7"><a href=""></a>  <span class="at">tumor_reduction =</span> <span class="fu">c</span>(</span>
+<span id="cb5-8"><a href=""></a>    <span class="fl">4.27</span>, <span class="fl">3.70</span>, <span class="fl">5.56</span>, <span class="fl">2.12</span>, <span class="fl">6.85</span>,</span>
+<span id="cb5-9"><a href=""></a>    <span class="fl">0.98</span>, <span class="fl">5.13</span>, <span class="fl">3.27</span>, <span class="fl">2.41</span>, <span class="fl">5.99</span>,</span>
+<span id="cb5-10"><a href=""></a>    <span class="fl">4.13</span>, <span class="fl">2.98</span>, <span class="fl">1.84</span>, <span class="fl">4.98</span>, <span class="fl">6.70</span>,</span>
+<span id="cb5-11"><a href=""></a>    <span class="fl">3.41</span>, <span class="fl">2.27</span>, <span class="fl">5.27</span>, <span class="fl">5.41</span>, <span class="fl">3.55</span></span>
+<span id="cb5-12"><a href=""></a>  )</span>
+<span id="cb5-13"><a href=""></a>)</span>
+<span id="cb5-14"><a href=""></a></span>
+<span id="cb5-15"><a href=""></a><span class="fu">head</span>(tumor_df, <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 2
+  patient_id tumor_reduction
+       &lt;int&gt;           &lt;dbl&gt;
+1          1            4.27
+2          2            3.7 
+3          3            5.56
+4          4            2.12
+5          5            6.85</code></pre>
+</div>
+</div>
+<p>Perform One-Sample t Test</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a>t_result <span class="ot">&lt;-</span> <span class="fu">t.test</span>(</span>
+<span id="cb7-2"><a href=""></a>  tumor_df<span class="sc">$</span>tumor_reduction,</span>
+<span id="cb7-3"><a href=""></a>  <span class="at">mu =</span> <span class="dv">0</span>,</span>
+<span id="cb7-4"><a href=""></a>  <span class="at">alternative =</span> <span class="st">"greater"</span></span>
+<span id="cb7-5"><a href=""></a>)</span>
+<span id="cb7-6"><a href=""></a></span>
+<span id="cb7-7"><a href=""></a>t_result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    One Sample t-test
+
+data:  tumor_df$tumor_reduction
+t = 10.845, df = 19, p-value = 7.011e-10
+alternative hypothesis: true mean is greater than 0
+95 percent confidence interval:
+ 3.396723      Inf
+sample estimates:
+mean of x 
+    4.041 </code></pre>
+</div>
+</div>
+<p><strong>Interpretation</strong></p>
+<ul>
+<li>sample mean tumor reduction is approximately 4.04%</li>
+<li>t-statistic [t = 10.845] observed sample mean is ~ 15.5 estimated standard errors above the benchmark value [null hypothesis] of 0</li>
+<li>positive t-statistic indicates the observed mean is greater than the null hypothesis value</li>
+<li>because the alternative hypothesis is <span class="math inline">\(H_A:μ&gt;0\)</span> , the p-value is calculated using the right tail of the t distribution</li>
+<li>p-value = 7.011e-10 <span class="math inline">\(\rightarrow\)</span> indicates strong evidence that the population mean tumor reduction is greater than 0</li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="one-tailed-t-test-example-3">One-Tailed t-Test: Example</h3>
+<div style="font-size:0.76em">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/right_tailed_dist.png" class="quarto-figure quarto-figure-center" style="width:85.0%"></p>
+</figure>
+</div>
+<p><strong>Interpretation</strong></p>
+<ul>
+<li>black curve represents the theoretical t distribution under the null hypothesis that the population mean tumor reduction equals 0 dashed vertical line marks the observed t-statistic [t=10.84] calculated from the sample data</li>
+<li>red shaded right-tail region represents the p-value for the one-tailed test <span class="math inline">\(H_A:μ&gt;0\)</span></li>
+<li>observed t-statistic is far to the right of the center of the distribution, the shaded probability area is extremely small <span class="math inline">\(\rightarrow\)</span> indicates that observing a sample mean this large would be very unlikely if the true population mean were actually 0</li>
+<li>small p-value [p: 7.011e-10] provides strong statistical evidence that the population mean tumor reduction is greater than 0</li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="independent-two-sample-t-test-example">Independent Two-Sample t-Test: Example</h3>
+<div style="font-size:0.76em">
+<p><strong>Background</strong></p>
+<p>A clinical hypertension study compares systolic blood pressure between patients receiving Treatment A and Treatment B.</p>
+<p>Researchers want to determine whether the average blood pressure differs between the two treatment groups.</p>
+<p>Determine:</p>
+<blockquote>
+<p>Is mean systolic blood pressure different between Treatment A and Treatment B?</p>
+</blockquote>
+<p>Where:</p>
+<p><span class="math inline">\(H_0 : \mu_A - \mu_B = 0\)</span></p>
+<p><span class="math inline">\(H_A : \mu_A - \mu_B \ne 0\)</span></p>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="independent-two-sample-t-test-example-1">Independent Two-Sample t-Test: Example</h3>
+<div style="font-size:0.76em">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb9-2"><a href=""></a></span>
+<span id="cb9-3"><a href=""></a><span class="fu">set.seed</span>(<span class="dv">29</span>)</span>
+<span id="cb9-4"><a href=""></a></span>
+<span id="cb9-5"><a href=""></a>bp_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb9-6"><a href=""></a>  <span class="at">treatment =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Treatment A"</span>, <span class="st">"Treatment B"</span>), <span class="at">each =</span> <span class="dv">20</span>),</span>
+<span id="cb9-7"><a href=""></a>  <span class="at">systolic_bp =</span> <span class="fu">c</span>(</span>
+<span id="cb9-8"><a href=""></a>    <span class="fl">117.9</span>, <span class="fl">117.3</span>, <span class="fl">109.9</span>, <span class="fl">123.0</span>, <span class="fl">125.5</span>,</span>
+<span id="cb9-9"><a href=""></a>    <span class="fl">124.7</span>, <span class="fl">119.8</span>, <span class="fl">124.0</span>, <span class="fl">118.7</span>, <span class="fl">117.2</span>,</span>
+<span id="cb9-10"><a href=""></a>    <span class="fl">118.5</span>, <span class="fl">122.1</span>, <span class="fl">119.0</span>, <span class="fl">120.8</span>, <span class="fl">118.9</span>,</span>
+<span id="cb9-11"><a href=""></a>    <span class="fl">121.5</span>, <span class="fl">119.4</span>, <span class="fl">122.1</span>, <span class="fl">116.8</span>, <span class="fl">120.6</span>,</span>
+<span id="cb9-12"><a href=""></a></span>
+<span id="cb9-13"><a href=""></a>    <span class="fl">135.9</span>, <span class="fl">129.2</span>, <span class="fl">131.9</span>, <span class="fl">129.9</span>, <span class="fl">131.2</span>,</span>
+<span id="cb9-14"><a href=""></a>    <span class="fl">129.3</span>, <span class="fl">131.8</span>, <span class="fl">127.3</span>, <span class="fl">129.5</span>, <span class="fl">128.8</span>,</span>
+<span id="cb9-15"><a href=""></a>    <span class="fl">138.2</span>, <span class="fl">127.7</span>, <span class="fl">135.9</span>, <span class="fl">127.9</span>, <span class="fl">127.3</span>,</span>
+<span id="cb9-16"><a href=""></a>    <span class="fl">131.6</span>, <span class="fl">128.6</span>, <span class="fl">129.0</span>, <span class="fl">135.1</span>, <span class="fl">132.6</span></span>
+<span id="cb9-17"><a href=""></a>  )</span>
+<span id="cb9-18"><a href=""></a>)</span>
+<span id="cb9-19"><a href=""></a></span>
+<span id="cb9-20"><a href=""></a><span class="fu">head</span>(bp_df, <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 2
+  treatment   systolic_bp
+  &lt;chr&gt;             &lt;dbl&gt;
+1 Treatment A        118.
+2 Treatment A        117.
+3 Treatment A        110.
+4 Treatment A        123 
+5 Treatment A        126.</code></pre>
+</div>
+</div>
+<p>Perform Independent Two-Sample t Test</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a>t_result <span class="ot">&lt;-</span> <span class="fu">t.test</span>(</span>
+<span id="cb11-2"><a href=""></a>  systolic_bp <span class="sc">~</span> treatment,</span>
+<span id="cb11-3"><a href=""></a>  <span class="at">data =</span> bp_df,</span>
+<span id="cb11-4"><a href=""></a>  <span class="at">alternative =</span> <span class="st">"two.sided"</span></span>
+<span id="cb11-5"><a href=""></a>)</span>
+<span id="cb11-6"><a href=""></a></span>
+<span id="cb11-7"><a href=""></a>t_result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  systolic_bp by treatment
+t = -10.504, df = 37.747, p-value = 9.279e-13
+alternative hypothesis: true difference in means between group Treatment A and group Treatment B is not equal to 0
+95 percent confidence interval:
+ -13.18014  -8.91986
+sample estimates:
+mean in group Treatment A mean in group Treatment B 
+                  119.885                   130.935 </code></pre>
+</div>
+</div>
+<p><strong>Code Explanation</strong></p>
+<ul>
+<li><code>t.test()</code> : performs an independent two-sample t test</li>
+<li><code>systolic_bp ~ treatment</code> : compares mean systolic blood pressure between the two treatment groups</li>
+<li><code>data = bp_df</code> : specifies the dataset containing the variables</li>
+<li>null hypothesis assumes no population mean difference between groups:</li>
+</ul>
+<p><span class="math inline">\(H_0:\mu_A - \mu_B = 0\)</span></p>
+<ul>
+<li><code>alternative = "two.sided"</code> : specifies a two-tailed test:</li>
+</ul>
+<p><span class="math inline">\(H_A:\mu_A - \mu_B \ne 0\)</span></p>
+<ul>
+<li>p-value is calculated using the area in both tails of the t distribution</li>
+<li><code>t_result</code> stores the test results, including the t-statistic, degrees of freedom, p-value, confidence interval, and group means</li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="independent-two-sample-t-test-example-2">Independent Two-Sample t-Test: Example</h3>
+<div style="font-size:0.76em">
+<p>Perform Independent Two-Sample t Test</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a>t_result <span class="ot">&lt;-</span> <span class="fu">t.test</span>(</span>
+<span id="cb13-2"><a href=""></a>  systolic_bp <span class="sc">~</span> treatment,</span>
+<span id="cb13-3"><a href=""></a>  <span class="at">data =</span> bp_df,</span>
+<span id="cb13-4"><a href=""></a>  <span class="at">alternative =</span> <span class="st">"two.sided"</span></span>
+<span id="cb13-5"><a href=""></a>)</span>
+<span id="cb13-6"><a href=""></a></span>
+<span id="cb13-7"><a href=""></a>t_result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  systolic_bp by treatment
+t = -10.504, df = 37.747, p-value = 9.279e-13
+alternative hypothesis: true difference in means between group Treatment A and group Treatment B is not equal to 0
+95 percent confidence interval:
+ -13.18014  -8.91986
+sample estimates:
+mean in group Treatment A mean in group Treatment B 
+                  119.885                   130.935 </code></pre>
+</div>
+</div>
+<p><strong>Interpretation</strong></p>
+<ul>
+<li>mean systolic blood pressure differs between Treatment A and Treatment B</li>
+<li>t-statistic [<span class="math inline">\(t = -10.52\)</span>] indicates the observed difference in sample means is approximately 10.5 estimated standard errors away from the null hypothesis value of 0</li>
+<li>negative t-statistic indicates the mean systolic blood pressure in Treatment A is lower than in Treatment B</li>
+<li>because the alternative hypothesis is <span class="math inline">\(H_A:\mu_A-\mu_B\ne0\)</span> <span class="math inline">\(\rightarrow\)</span> p-value is calculated using both tails of the t distribution</li>
+<li>p-value <span class="math inline">\(\approx 2.1\times10^{-12}\)</span> <span class="math inline">\(\rightarrow\)</span> indicates strong evidence that the population mean systolic blood pressures differ between the two treatments</li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="independent-two-sample-t-test-example-3">Independent Two-Sample t-Test: Example</h3>
+<div style="font-size:0.76em">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb15-2"><a href=""></a></span>
+<span id="cb15-3"><a href=""></a>t_stat <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">10.52</span></span>
+<span id="cb15-4"><a href=""></a>df <span class="ot">&lt;-</span> <span class="dv">38</span></span>
+<span id="cb15-5"><a href=""></a></span>
+<span id="cb15-6"><a href=""></a>p_value <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">pt</span>(</span>
+<span id="cb15-7"><a href=""></a>  <span class="fu">abs</span>(t_stat),</span>
+<span id="cb15-8"><a href=""></a>  <span class="at">df =</span> df,</span>
+<span id="cb15-9"><a href=""></a>  <span class="at">lower.tail =</span> <span class="cn">FALSE</span></span>
+<span id="cb15-10"><a href=""></a>)</span>
+<span id="cb15-11"><a href=""></a></span>
+<span id="cb15-12"><a href=""></a>plot_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb15-13"><a href=""></a>  <span class="at">x =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">14</span>, <span class="dv">14</span>, <span class="at">length.out =</span> <span class="dv">2000</span>),</span>
+<span id="cb15-14"><a href=""></a>  <span class="at">density =</span> <span class="fu">dt</span>(x, <span class="at">df =</span> df)</span>
+<span id="cb15-15"><a href=""></a>)</span>
+<span id="cb15-16"><a href=""></a></span>
+<span id="cb15-17"><a href=""></a>shade_df <span class="ot">&lt;-</span> plot_df <span class="sc">|&gt;</span></span>
+<span id="cb15-18"><a href=""></a>  <span class="fu">filter</span>(x <span class="sc">&lt;=</span> t_stat <span class="sc">|</span> x <span class="sc">&gt;=</span> <span class="fu">abs</span>(t_stat))</span>
+<span id="cb15-19"><a href=""></a></span>
+<span id="cb15-20"><a href=""></a><span class="fu">ggplot</span>(plot_df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> density)) <span class="sc">+</span></span>
+<span id="cb15-21"><a href=""></a></span>
+<span id="cb15-22"><a href=""></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb15-23"><a href=""></a></span>
+<span id="cb15-24"><a href=""></a>  <span class="fu">geom_area</span>(</span>
+<span id="cb15-25"><a href=""></a>    <span class="at">data =</span> shade_df,</span>
+<span id="cb15-26"><a href=""></a>    <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> density),</span>
+<span id="cb15-27"><a href=""></a>    <span class="at">alpha =</span> <span class="fl">0.4</span></span>
+<span id="cb15-28"><a href=""></a>  ) <span class="sc">+</span></span>
+<span id="cb15-29"><a href=""></a></span>
+<span id="cb15-30"><a href=""></a>  <span class="fu">geom_vline</span>(</span>
+<span id="cb15-31"><a href=""></a>    <span class="at">xintercept =</span> <span class="fu">c</span>(t_stat, <span class="fu">abs</span>(t_stat)),</span>
+<span id="cb15-32"><a href=""></a>    <span class="at">linetype =</span> <span class="st">"dashed"</span>,</span>
+<span id="cb15-33"><a href=""></a>    <span class="at">linewidth =</span> <span class="dv">1</span></span>
+<span id="cb15-34"><a href=""></a>  ) <span class="sc">+</span></span>
+<span id="cb15-35"><a href=""></a></span>
+<span id="cb15-36"><a href=""></a>  <span class="fu">annotate</span>(</span>
+<span id="cb15-37"><a href=""></a>    <span class="st">"text"</span>,</span>
+<span id="cb15-38"><a href=""></a>    <span class="at">x =</span> t_stat,</span>
+<span id="cb15-39"><a href=""></a>    <span class="at">y =</span> <span class="fl">0.03</span>,</span>
+<span id="cb15-40"><a href=""></a>    <span class="at">label =</span> <span class="st">"t = -10.52"</span>,</span>
+<span id="cb15-41"><a href=""></a>    <span class="at">hjust =</span> <span class="fl">1.1</span>,</span>
+<span id="cb15-42"><a href=""></a>    <span class="at">size =</span> <span class="dv">4</span></span>
+<span id="cb15-43"><a href=""></a>  ) <span class="sc">+</span></span>
+<span id="cb15-44"><a href=""></a></span>
+<span id="cb15-45"><a href=""></a>  <span class="fu">annotate</span>(</span>
+<span id="cb15-46"><a href=""></a>    <span class="st">"text"</span>,</span>
+<span id="cb15-47"><a href=""></a>    <span class="at">x =</span> <span class="fu">abs</span>(t_stat),</span>
+<span id="cb15-48"><a href=""></a>    <span class="at">y =</span> <span class="fl">0.03</span>,</span>
+<span id="cb15-49"><a href=""></a>    <span class="at">label =</span> <span class="st">"t = 10.52"</span>,</span>
+<span id="cb15-50"><a href=""></a>    <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.1</span>,</span>
+<span id="cb15-51"><a href=""></a>    <span class="at">size =</span> <span class="dv">4</span></span>
+<span id="cb15-52"><a href=""></a>  ) <span class="sc">+</span></span>
+<span id="cb15-53"><a href=""></a></span>
+<span id="cb15-54"><a href=""></a>  <span class="fu">labs</span>(</span>
+<span id="cb15-55"><a href=""></a>    <span class="at">title =</span> <span class="st">"Two-Tailed p-value from the t Distribution"</span>,</span>
+<span id="cb15-56"><a href=""></a>    <span class="at">subtitle =</span> <span class="fu">expression</span>(</span>
+<span id="cb15-57"><a href=""></a>      <span class="st">"Independent two-sample t test: "</span> <span class="sc">~</span></span>
+<span id="cb15-58"><a href=""></a>      H[A] <span class="sc">~</span> <span class="st">":"</span> <span class="sc">~</span> mu[A] <span class="sc">-</span> mu[B] <span class="sc">!=</span> <span class="dv">0</span></span>
+<span id="cb15-59"><a href=""></a>    ),</span>
+<span id="cb15-60"><a href=""></a>    <span class="at">x =</span> <span class="st">"t statistic"</span>,</span>
+<span id="cb15-61"><a href=""></a>    <span class="at">y =</span> <span class="st">"Density"</span></span>
+<span id="cb15-62"><a href=""></a>  ) <span class="sc">+</span></span>
+<span id="cb15-63"><a href=""></a></span>
+<span id="cb15-64"><a href=""></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="test_2_082025_files/figure-revealjs/unnamed-chunk-9-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Interpretation</strong></p>
+<ul>
+<li>black curve represents the theoretical t distribution under the null hypothesis that the population mean blood pressure difference between Treatment A and Treatment B equals 0</li>
+<li>dashed vertical lines mark the observed t-statistic values used to define the two-tailed p-value region</li>
+<li>red shaded tail regions represent the p-value for the two-tailed test <span class="math inline">\(H_A:\mu_A-\mu_B\ne0\)</span></li>
+<li>observed t-statistic is far from the center of the distribution in both directions</li>
+<li>combined shaded probability area is extremely small <span class="math inline">\(\rightarrow\)</span> indicates that observing a difference in sample means this extreme would be very unlikely if the true population means were equal</li>
+<li>small p-value [<span class="math inline">\(p \approx 2.1\times10^{-12}\)</span>] provides strong statistical evidence that the population mean blood pressures differ between Treatment A and Treatment B</li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="paired-t-test-example">Paired t-Test: Example</h3>
+<div style="font-size:0.76em">
+<p><strong>Background</strong></p>
+<p>A clinical neurology study measures symptom severity scores in the same patients before and after treatment.</p>
+<p>Researchers want to determine whether the average within-patient change in symptom score differs from 0.</p>
+<p>First define the paired difference:</p>
+<p><span class="math inline">\(d = \text{before} - \text{after}\)</span></p>
+<p>Determine:</p>
+<blockquote>
+<p>Is the average within-patient change in symptom score different from 0?</p>
+</blockquote>
+<p>Where:</p>
+<p><span class="math inline">\(H_0:\mu_d = 0\)</span></p>
+<p><span class="math inline">\(H_A:\mu_d \ne 0\)</span></p>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="paired-t-test-example-1">Paired t-Test: Example</h3>
+<div style="font-size:0.76em">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href=""></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb16-2"><a href=""></a></span>
+<span id="cb16-3"><a href=""></a><span class="fu">set.seed</span>(<span class="dv">29</span>)</span>
+<span id="cb16-4"><a href=""></a></span>
+<span id="cb16-5"><a href=""></a>symptom_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb16-6"><a href=""></a>  <span class="at">patient_id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>,</span>
+<span id="cb16-7"><a href=""></a></span>
+<span id="cb16-8"><a href=""></a>  <span class="at">symptom_before =</span> <span class="fu">c</span>(</span>
+<span id="cb16-9"><a href=""></a>    <span class="dv">24</span>, <span class="dv">26</span>, <span class="dv">25</span>, <span class="dv">27</span>, <span class="dv">23</span>,</span>
+<span id="cb16-10"><a href=""></a>    <span class="dv">28</span>, <span class="dv">26</span>, <span class="dv">25</span>, <span class="dv">24</span>, <span class="dv">27</span>,</span>
+<span id="cb16-11"><a href=""></a>    <span class="dv">29</span>, <span class="dv">25</span>, <span class="dv">26</span>, <span class="dv">24</span>, <span class="dv">28</span>,</span>
+<span id="cb16-12"><a href=""></a>    <span class="dv">27</span>, <span class="dv">25</span>, <span class="dv">26</span>, <span class="dv">24</span>, <span class="dv">27</span></span>
+<span id="cb16-13"><a href=""></a>  ),</span>
+<span id="cb16-14"><a href=""></a></span>
+<span id="cb16-15"><a href=""></a>  <span class="at">symptom_after =</span> <span class="fu">c</span>(</span>
+<span id="cb16-16"><a href=""></a>    <span class="dv">18</span>, <span class="dv">20</span>, <span class="dv">19</span>, <span class="dv">21</span>, <span class="dv">18</span>,</span>
+<span id="cb16-17"><a href=""></a>    <span class="dv">22</span>, <span class="dv">20</span>, <span class="dv">19</span>, <span class="dv">18</span>, <span class="dv">21</span>,</span>
+<span id="cb16-18"><a href=""></a>    <span class="dv">23</span>, <span class="dv">20</span>, <span class="dv">21</span>, <span class="dv">18</span>, <span class="dv">22</span>,</span>
+<span id="cb16-19"><a href=""></a>    <span class="dv">21</span>, <span class="dv">19</span>, <span class="dv">20</span>, <span class="dv">18</span>, <span class="dv">21</span></span>
+<span id="cb16-20"><a href=""></a>  )</span>
+<span id="cb16-21"><a href=""></a>)</span>
+<span id="cb16-22"><a href=""></a></span>
+<span id="cb16-23"><a href=""></a><span class="fu">head</span>(symptom_df, <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 3
+  patient_id symptom_before symptom_after
+       &lt;int&gt;          &lt;dbl&gt;         &lt;dbl&gt;
+1          1             24            18
+2          2             26            20
+3          3             25            19
+4          4             27            21
+5          5             23            18</code></pre>
+</div>
+</div>
+<p>Perform Paired t Test</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href=""></a>t_result <span class="ot">&lt;-</span> <span class="fu">t.test</span>(</span>
+<span id="cb18-2"><a href=""></a>  symptom_df<span class="sc">$</span>symptom_before,</span>
+<span id="cb18-3"><a href=""></a>  symptom_df<span class="sc">$</span>symptom_after,</span>
+<span id="cb18-4"><a href=""></a>  <span class="at">paired =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb18-5"><a href=""></a>  <span class="at">alternative =</span> <span class="st">"two.sided"</span></span>
+<span id="cb18-6"><a href=""></a>)</span>
+<span id="cb18-7"><a href=""></a></span>
+<span id="cb18-8"><a href=""></a>t_result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Paired t-test
+
+data:  symptom_df$symptom_before and symptom_df$symptom_after
+t = 71.413, df = 19, p-value &lt; 2.2e-16
+alternative hypothesis: true mean difference is not equal to 0
+95 percent confidence interval:
+ 5.678544 6.021456
+sample estimates:
+mean difference 
+           5.85 </code></pre>
+</div>
+</div>
+<p><strong>Code Explanation</strong></p>
+<ul>
+<li><code>t.test()</code> : performs a paired t test</li>
+<li><code>symptom_before</code> and <code>symptom_after</code> contain measurements collected from the same patients</li>
+<li><code>paired = TRUE</code> : tells R to analyze within-patient differences rather than treating groups as independent</li>
+<li>paired differences are defined as:</li>
+</ul>
+<p><span class="math inline">\(d = \text{before} - \text{after}\)</span></p>
+<ul>
+<li>null hypothesis assumes the population mean paired difference equals 0:</li>
+</ul>
+<p><span class="math inline">\(H_0:\mu_d = 0\)</span></p>
+<ul>
+<li><code>alternative = "two.sided"</code> : specifies a two-tailed test:</li>
+</ul>
+<p><span class="math inline">\(H_A:\mu_d \ne 0\)</span></p>
+<ul>
+<li>p-value is calculated using both tails of the t distribution</li>
+<li><code>t_result</code> stores the test results, including the t-statistic, degrees of freedom, p-value, confidence interval, and mean paired difference</li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="perform-paired-t-test">Perform Paired t Test</h3>
+<div style="font-size:0.76em">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href=""></a>t_result <span class="ot">&lt;-</span> <span class="fu">t.test</span>(</span>
+<span id="cb20-2"><a href=""></a>  symptom_df<span class="sc">$</span>symptom_before,</span>
+<span id="cb20-3"><a href=""></a>  symptom_df<span class="sc">$</span>symptom_after,</span>
+<span id="cb20-4"><a href=""></a>  <span class="at">paired =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb20-5"><a href=""></a>  <span class="at">alternative =</span> <span class="st">"two.sided"</span></span>
+<span id="cb20-6"><a href=""></a>)</span>
+<span id="cb20-7"><a href=""></a></span>
+<span id="cb20-8"><a href=""></a>t_result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Paired t-test
+
+data:  symptom_df$symptom_before and symptom_df$symptom_after
+t = 71.413, df = 19, p-value &lt; 2.2e-16
+alternative hypothesis: true mean difference is not equal to 0
+95 percent confidence interval:
+ 5.678544 6.021456
+sample estimates:
+mean difference 
+           5.85 </code></pre>
+</div>
+</div>
+<p><strong>Interpretation</strong></p>
+<ul>
+<li>average within-patient symptom score change is approximately 5.85 points</li>
+<li>t-statistic [<span class="math inline">\(t = 71.413\)</span>] indicates the observed mean paired difference is approximately 71 estimated standard errors away from the null hypothesis value of 0</li>
+<li>positive t-statistic indicates symptom scores were generally higher before treatment than after treatment</li>
+<li>because the alternative hypothesis is <span class="math inline">\(H_A:\mu_d\ne0\)</span>, the p-value is calculated using both tails of the t distribution</li>
+<li>p-value <span class="math inline">\(&lt;2.2\times10^{-16}\)</span> <span class="math inline">\(\rightarrow\)</span> indicates extremely strong evidence that the population mean within-patient symptom change differs from 0</li>
+<li>95% confidence interval [5.68, 6.02] indicates the population mean symptom score reduction is estimated to be between approximately 5.7 and 6.0 points</li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="paired-t-test-example-2">Paired t-Test: Example</h3>
+<div style="font-size:0.76em">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href=""></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb22-2"><a href=""></a></span>
+<span id="cb22-3"><a href=""></a>t_stat <span class="ot">&lt;-</span> <span class="fl">18.24</span></span>
+<span id="cb22-4"><a href=""></a>df <span class="ot">&lt;-</span> <span class="dv">19</span></span>
+<span id="cb22-5"><a href=""></a></span>
+<span id="cb22-6"><a href=""></a>p_value <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">pt</span>(</span>
+<span id="cb22-7"><a href=""></a>  <span class="fu">abs</span>(t_stat),</span>
+<span id="cb22-8"><a href=""></a>  <span class="at">df =</span> df,</span>
+<span id="cb22-9"><a href=""></a>  <span class="at">lower.tail =</span> <span class="cn">FALSE</span></span>
+<span id="cb22-10"><a href=""></a>)</span>
+<span id="cb22-11"><a href=""></a></span>
+<span id="cb22-12"><a href=""></a>plot_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb22-13"><a href=""></a>  <span class="at">x =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">22</span>, <span class="dv">22</span>, <span class="at">length.out =</span> <span class="dv">2000</span>),</span>
+<span id="cb22-14"><a href=""></a>  <span class="at">density =</span> <span class="fu">dt</span>(x, <span class="at">df =</span> df)</span>
+<span id="cb22-15"><a href=""></a>)</span>
+<span id="cb22-16"><a href=""></a></span>
+<span id="cb22-17"><a href=""></a>shade_df <span class="ot">&lt;-</span> plot_df <span class="sc">|&gt;</span></span>
+<span id="cb22-18"><a href=""></a>  <span class="fu">filter</span>(x <span class="sc">&lt;=</span> <span class="sc">-</span><span class="fu">abs</span>(t_stat) <span class="sc">|</span> x <span class="sc">&gt;=</span> <span class="fu">abs</span>(t_stat))</span>
+<span id="cb22-19"><a href=""></a></span>
+<span id="cb22-20"><a href=""></a><span class="fu">ggplot</span>(plot_df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> density)) <span class="sc">+</span></span>
+<span id="cb22-21"><a href=""></a></span>
+<span id="cb22-22"><a href=""></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb22-23"><a href=""></a></span>
+<span id="cb22-24"><a href=""></a>  <span class="fu">geom_area</span>(</span>
+<span id="cb22-25"><a href=""></a>    <span class="at">data =</span> shade_df,</span>
+<span id="cb22-26"><a href=""></a>    <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> density),</span>
+<span id="cb22-27"><a href=""></a>    <span class="at">alpha =</span> <span class="fl">0.4</span></span>
+<span id="cb22-28"><a href=""></a>  ) <span class="sc">+</span></span>
+<span id="cb22-29"><a href=""></a></span>
+<span id="cb22-30"><a href=""></a>  <span class="fu">geom_vline</span>(</span>
+<span id="cb22-31"><a href=""></a>    <span class="at">xintercept =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fu">abs</span>(t_stat), <span class="fu">abs</span>(t_stat)),</span>
+<span id="cb22-32"><a href=""></a>    <span class="at">linetype =</span> <span class="st">"dashed"</span>,</span>
+<span id="cb22-33"><a href=""></a>    <span class="at">linewidth =</span> <span class="dv">1</span></span>
+<span id="cb22-34"><a href=""></a>  ) <span class="sc">+</span></span>
+<span id="cb22-35"><a href=""></a></span>
+<span id="cb22-36"><a href=""></a>  <span class="fu">annotate</span>(</span>
+<span id="cb22-37"><a href=""></a>    <span class="st">"text"</span>,</span>
+<span id="cb22-38"><a href=""></a>    <span class="at">x =</span> <span class="fu">abs</span>(t_stat),</span>
+<span id="cb22-39"><a href=""></a>    <span class="at">y =</span> <span class="fl">0.03</span>,</span>
+<span id="cb22-40"><a href=""></a>    <span class="at">label =</span> <span class="st">"t = 18.24"</span>,</span>
+<span id="cb22-41"><a href=""></a>    <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.1</span>,</span>
+<span id="cb22-42"><a href=""></a>    <span class="at">size =</span> <span class="dv">4</span></span>
+<span id="cb22-43"><a href=""></a>  ) <span class="sc">+</span></span>
+<span id="cb22-44"><a href=""></a></span>
+<span id="cb22-45"><a href=""></a>  <span class="fu">labs</span>(</span>
+<span id="cb22-46"><a href=""></a>    <span class="at">title =</span> <span class="st">"Two-Tailed p-value from the t Distribution"</span>,</span>
+<span id="cb22-47"><a href=""></a>    <span class="at">subtitle =</span> <span class="fu">expression</span>(</span>
+<span id="cb22-48"><a href=""></a>      <span class="st">"Paired t test: "</span> <span class="sc">~</span></span>
+<span id="cb22-49"><a href=""></a>      H[A] <span class="sc">~</span> <span class="st">":"</span> <span class="sc">~</span> mu[d] <span class="sc">!=</span> <span class="dv">0</span></span>
+<span id="cb22-50"><a href=""></a>    ),</span>
+<span id="cb22-51"><a href=""></a>    <span class="at">x =</span> <span class="st">"t statistic"</span>,</span>
+<span id="cb22-52"><a href=""></a>    <span class="at">y =</span> <span class="st">"Density"</span></span>
+<span id="cb22-53"><a href=""></a>  ) <span class="sc">+</span></span>
+<span id="cb22-54"><a href=""></a></span>
+<span id="cb22-55"><a href=""></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="test_2_082025_files/figure-revealjs/unnamed-chunk-13-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Interpretation</strong></p>
+<ul>
+<li><p>black curve represents the theoretical t distribution under the null hypothesis that the population mean paired difference equals 0</p></li>
+<li><p>dashed vertical lines mark the observed t-statistic values used to define the two-tailed p-value region</p></li>
+<li><p>shaded tail regions represent the p-value for the two-tailed paired t test <span class="math inline">\(H_A:\mu_d\ne0\)</span></p></li>
+<li><p>observed t-statistic is far from the center of the distribution, so the combined shaded probability area is extremely small <span class="math inline">\(\rightarrow\)</span> indicates that observing a mean paired difference this extreme would be very unlikely if the true population mean difference were actually 0</p></li>
+<li><p>extremely small p-value provides strong statistical evidence that the population mean within-patient symptom change differs from 0</p></li>
+<li><p>black curve represents the theoretical t distribution under the null hypothesis that the population mean paired difference equals 0</p></li>
+<li><p>dashed vertical lines mark the observed t-statistic values used to define the two-tailed p-value region</p></li>
+<li><p>paired t test uses the alternative hypothesis: <span class="math inline">\(H_A: \mu_{d} \neq 0\)</span></p></li>
+<li><p>observed t-statistic [t=18.24] is extremely far from the center of the distribution, indicating the observed mean paired difference is many estimated standard errors away from 0</p></li>
+<li><p>shaded tail areas would represent the probability of observing a t-statistic this extreme or more extreme in either direction if the true population mean paired difference were actually 0</p></li>
+<li><p>tail probabilities are extremely small <span class="math inline">\(\rightarrow\)</span> p-value is small [p = &lt; 2.2e-16]</p></li>
+<li><p>provides statistical evidence that the average within-patient symptom score changed after treatment</p></li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="summary">Summary</h3>
+<div style="font-size:0.76em">
+<ul>
+<li>t-tests provide a statistical framework for determining whether an observed sample difference is large relative to ordinary sampling variability</li>
+<li>t-statistic measures how far an observed estimate is from the null hypothesis value after accounting for uncertainty and variability in the data</li>
+<li>p-value quantifies how unusual the observed result would be if the null hypothesis were true</li>
+<li>small p-values indicate stronger evidence against the null hypothesis because the observed result would be unlikely under the null model</li>
+<li>t distribution is used because the population standard deviation is typically unknown and must be estimated from the sample data</li>
+<li>small sample sizes introduce greater uncertainty <span class="math inline">\(\rightarrow\)</span> producing heavier tails in the t distribution</li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="summary-1">Summary</h3>
+<div style="font-size:0.76em">
+<ul>
+<li><p>different t-tests are used depending on the scientific design and structure of the data:</p>
+<ul>
+<li>one-sample t test evaluates one population mean against a benchmark</li>
+<li>independent two-sample t test evaluates mean differences between independent groups</li>
+<li>paired t test evaluates mean within-subject or within-patient differences</li>
+</ul></li>
+<li><p>alternative hypothesis determines whether the p-value is calculated from the left tail, right tail, or both tails of the t distribution</p></li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="test_2_082025_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="test_2_082025_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="test_2_082025_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="test_2_082025_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="test_2_082025_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="test_2_082025_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="test_2_082025_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="test_2_082025_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="test_2_082025_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="test_2_082025_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="test_2_082025_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
+              }
+            }
+            return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>
