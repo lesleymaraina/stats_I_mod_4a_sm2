@@ -16,7 +16,7 @@ execute:
 
 
 ### Lecture Overview
-
+::: {style="font-size:0.6em"}
 - introduce the t-test framework for hypothesis testing with continuous data
 
 Motivation: 
@@ -29,12 +29,12 @@ The lecture introduces:
 - t distribution
 - t-statistics and p-values
 - one-sample, independent two-sample, and paired t tests
-
+:::
 ---
 
 ### Background
 
-::: {style="font-size:0.76em"}
+::: {style="font-size:0.6em"}
 
 As a review hypothesis tests involve:
 
@@ -55,7 +55,7 @@ As a review hypothesis tests involve:
 
 ### Background
 
-::: {style="font-size:0.76em"}
+::: {style="font-size:0.6em"}
 
 - hypothesis tests for continuous data can be used as tools to help researchers determine whether an observed difference in a sample is large enough to suggest a meaningful population-level effect rather than ordinary sampling variability alone
 - hypothesis tests allows one to determine whether the observed difference between two continuous outcomes is large relative to the amount of variability expected across repeated samples rather than just reporting the numerical difference between two continuous outcomes
@@ -67,9 +67,9 @@ As a review hypothesis tests involve:
 
 ---
 
-## Definition : t-test
+### Definition : t-test
 
-::: {style="font-size:0.76em"}
+::: {style="font-size:0.6em"}
 
 `t-test` : statistical approach used to compare the means of two groups of continuous measurements
 
@@ -80,6 +80,17 @@ t-tests also account for:
 - uncertainty in the population standard deviation
 
 - continuous variables often vary across patients
+
+
+
+:::
+
+---
+
+### Definition : t-test
+
+::: {style="font-size:0.6em"}
+
 
 For example:
 
@@ -99,10 +110,9 @@ The statistical test can be used for:
 
 ---
 
-
 ## Review: Definition of a p-Value
 
-::: {style="font-size:0.76em"}
+::: {style="font-size:0.6em"}
 
 `p-value`: probability of observing results at least as extreme as the observed data, given that the null hypothesis is true
 
@@ -123,9 +133,9 @@ Large p-values indicate:
 
 ---
 
-## Why a t Distribution Is Used
+### Why a t Distribution Is Used
 
-::: {style="font-size:0.76em"}
+::: {style="font-size:0.6em"}
 
 `t distribution` : probability distribution used to model uncertainty in standardized sample mean differences when the population standard deviation is unknown
 
@@ -139,6 +149,16 @@ distribution accounts for:
 - sampling variability
 - uncertainty in the estimated standard deviation
 - effects of small sample size
+
+
+:::
+
+---
+
+### Why a t Distribution Is Used
+
+::: {style="font-size:0.6em"}
+
 
 Distribution key characteristics:
 
@@ -156,7 +176,7 @@ Note: as sample size increases:
 
 ---
 
-## Why a t Distribution Is Used
+### Why a t Distribution Is Used
 
 ::: {style="font-size:0.55em"}
 
@@ -215,6 +235,67 @@ ggplot(
 
 - `t distribution(s)`: wider overall because variability is estimated from the sample data and introduces additional uncertainty
 
+
+
+:::
+
+---
+
+### Why a t Distribution Is Used
+
+::: {style="font-size:0.55em"}
+
+
+
+```{r, echo=FALSE}
+#| fig-width: 7
+#| fig-height: 2.5
+
+
+library(tidyverse)
+
+x <- seq(-5, 5, length.out = 1000)
+
+dist_df <- bind_rows(
+  
+  tibble(
+    x = x,
+    density = dnorm(x),
+    distribution = "Standard normal"
+  ),
+  
+  tibble(
+    x = x,
+    density = dt(x, df = 3),
+    distribution = "t distribution (df = 3)"
+  ),
+  
+  tibble(
+    x = x,
+    density = dt(x, df = 30),
+    distribution = "t distribution (df = 30)"
+  )
+)
+
+ggplot(
+  dist_df,
+  aes(
+    x = x,
+    y = density,
+    color = distribution
+  )
+) +
+  geom_line(linewidth = 1.2) +
+  labs(
+    title = "Normal Distribution vs t Distributions",
+    x = "Value",
+    y = "Density"
+  ) +
+  theme_bw()
+```
+
+**Interpretation**
+
 This effect is strongest with small sample sizes:
 
 - $t$ distribution with small degrees of freedom $(df = 3)$ has heavier tails
@@ -236,7 +317,7 @@ As sample size increases:
 
 ### Relationship Between the t-Statistic and p-Value
 
-::: {style="font-size:0.76em"}
+::: {style="font-size:0.6em"}
 
 t-test produce both a test statistic [t-statistic] and p-value:
 
@@ -264,7 +345,7 @@ Interpretation:
 
 ### Relationship Between the t-Statistic and p-Value
 
-::: {style="font-size:0.76em"}
+::: {style="font-size:0.6em"}
 
 - p-value is found as an area under the t distribution
 
@@ -292,7 +373,7 @@ Once the observed t-statistic is determined ask:
 
 ### Statistical Tests for Continuous Data
 
-::: {style="font-size:0.76em"}
+::: {style="font-size:0.6em"}
 
 - before calculating a p-value $\rightarrow$ choose t-test type based on structure of data
 - t-test is a family of statistical methods used to evaluate questions about population means when outcomes are continuous and the population standard deviation is unknown
@@ -309,7 +390,7 @@ Once the observed t-statistic is determined ask:
 
 ### One-Tailed t-Test
 
-::: {style="font-size:0.76em"}
+::: {style="font-size:0.6em"}
 
 - **one-tailed t-test** : hypothesis test used to determine whether a population mean or group mean differs from a reference value in one specific direction
 
@@ -336,7 +417,7 @@ $H_A : \mu < \mu_0$
 
 ### One-Tailed t-Test: Example
 
-::: {style="font-size:0.76em"}
+::: {style="font-size:0.6em"}
 
 **Background**
 
@@ -360,9 +441,9 @@ $H_A : \mu > \mu_0$
 
 ### One-Tailed t-Test: Example
 
-::: {style="font-size:0.76em"}
+::: {style="font-size:0.6em"}
 
-```{r}
+```{r, echo=FALSE}
 library(tidyverse)
 
 set.seed(29)
@@ -379,6 +460,24 @@ tumor_df <- tibble(
 
 head(tumor_df, 5)
 ```
+
+
+**Dataset Overview**
+
+- dach row represents one patient in a clinical oncology study
+- `tumor_reduction` : percent change in tumor size after treatment for that patient
+- positive values indicate tumor shrinkage (reduction in size)
+- dataset is a sample drawn from a larger population of similar patients
+- Goal: use the sample to estimate the true mean tumor reduction (μ)
+- hypothesis test evaluates whether the population mean tumor reduction is greater
+
+:::
+
+---
+
+### One-Tailed t-Test: Example
+
+::: {style="font-size:0.5em"}
 
 Perform One-Sample t Test
 
@@ -405,27 +504,11 @@ t_result
 
 ---
 
+
 ### One-Tailed t-Test: Example
 
-::: {style="font-size:0.76em"}
+::: {style="font-size:0.5em"}
 
-```{r}
-library(tidyverse)
-
-set.seed(29)
-
-tumor_df <- tibble(
-  patient_id = 1:20,
-  tumor_reduction = c(
-    4.27, 3.70, 5.56, 2.12, 6.85,
-    0.98, 5.13, 3.27, 2.41, 5.99,
-    4.13, 2.98, 1.84, 4.98, 6.70,
-    3.41, 2.27, 5.27, 5.41, 3.55
-  )
-)
-
-head(tumor_df, 5)
-```
 
 Perform One-Sample t Test
 
@@ -444,7 +527,7 @@ t_result
 - sample mean tumor reduction is approximately 4.04%
 - t-statistic [t = 10.845] observed sample mean is ~ 15.5 estimated standard errors above the benchmark value [null hypothesis] of 0
 - positive t-statistic indicates the observed mean is greater than the null hypothesis value
-- because the alternative hypothesis is $H_A:μ>0$ , the p-value is calculated using the right tail of the t distribution
+- alternative hypothesis is $H_A:μ>0$ , the p-value is calculated using the right tail of the t distribution
 - p-value = 7.011e-10 $\rightarrow$ indicates strong evidence that the population mean tumor reduction is greater than 0
 
 :::
@@ -453,15 +536,29 @@ t_result
 
 ### One-Tailed t-Test: Example
 
-::: {style="font-size:0.76em"}
+::: {style="font-size:0.6em"}
 
-![](images/right_tailed_dist.png){width=85% fig-align="center"}
+![](images/right_tailed_dist.png){width=65% fig-align="center"}
 
 **Interpretation**
 
 - black curve represents the theoretical t distribution under the null hypothesis that the population mean tumor reduction equals 0
 dashed vertical line marks the observed t-statistic [t=10.84] calculated from the sample data
 - red shaded right-tail region represents the p-value for the one-tailed test $H_A:μ>0$
+
+
+:::
+
+---
+
+### One-Tailed t-Test: Example
+
+::: {style="font-size:0.6em"}
+
+![](images/right_tailed_dist.png){width=65% fig-align="center"}
+
+**Interpretation**
+
 - observed t-statistic is far to the right of the center of the distribution, the shaded probability area is extremely small $\rightarrow$ indicates that observing a sample mean this large would be very unlikely if the true population mean were actually 0
 - small p-value [p: 7.011e-10] provides strong statistical evidence that the population mean tumor reduction is greater than 0
 
@@ -469,9 +566,10 @@ dashed vertical line marks the observed t-statistic [t=10.84] calculated from th
 
 ---
 
+
 ### Independent Two-Sample t-Test: Example
 
-::: {style="font-size:0.76em"}
+::: {style="font-size:0.6em"}
 
 **Background**
 
@@ -495,9 +593,9 @@ $H_A : \mu_A - \mu_B \ne 0$
 
 ### Independent Two-Sample t-Test: Example
 
-::: {style="font-size:0.76em"}
+::: {style="font-size:0.6em"}
 
-```{r}
+```{r, echo=FALSE}
 library(tidyverse)
 
 set.seed(29)
@@ -520,6 +618,26 @@ bp_df <- tibble(
 head(bp_df, 5)
 ```
 
+
+
+**Dataset Overview**
+
+- dataset is a sample from a larger population of patients who could receive either treatment
+- goal: compare the average systolic blood pressure between Treatment A and Treatment B
+- statistical question: does one treatment lead to lower average systolic blood pressure in the population?
+- each row represents one patient in a blood pressure clinical study
+- `treatment` indicates which group the patient was assigned to [Treatment A or Treatment B]
+- `systolic_bp` : patient’s measured systolic blood pressure after treatment
+- Treatment A and Treatment B each contain 20 patients (balanced sample design)
+
+:::
+
+---
+
+### Independent Two-Sample t-Test: Example
+
+::: {style="font-size:0.6em"}
+
 Perform Independent Two-Sample t Test
 
 ```{r}
@@ -537,6 +655,29 @@ t_result
 - `t.test()` : performs an independent two-sample t test
 - `systolic_bp ~ treatment` : compares mean systolic blood pressure between the two treatment groups
 - `data = bp_df` : specifies the dataset containing the variables
+
+:::
+
+---
+
+### Independent Two-Sample t-Test: Example
+
+::: {style="font-size:0.5em"}
+
+Perform Independent Two-Sample t Test
+
+```{r}
+t_result <- t.test(
+  systolic_bp ~ treatment,
+  data = bp_df,
+  alternative = "two.sided"
+)
+
+t_result
+```
+
+**Code Explanation**
+
 - null hypothesis assumes no population mean difference between groups:
 
 $H_0:\mu_A - \mu_B = 0$
@@ -554,10 +695,8 @@ $H_A:\mu_A - \mu_B \ne 0$
 
 ### Independent Two-Sample t-Test: Example
 
-::: {style="font-size:0.76em"}
+::: {style="font-size:0.55em"}
 
-
-Perform Independent Two-Sample t Test
 
 ```{r}
 t_result <- t.test(
@@ -584,9 +723,9 @@ t_result
 
 ### Independent Two-Sample t-Test: Example
 
-::: {style="font-size:0.76em"}
+::: {style="font-size:0.6em"}
 
-```{r}
+```{r, echo=FALSE, fig.width=6, fig.height=4}
 library(tidyverse)
 
 t_stat <- -10.52
@@ -658,6 +797,85 @@ ggplot(plot_df, aes(x = x, y = density)) +
 - black curve represents the theoretical t distribution under the null hypothesis that the population mean blood pressure difference between Treatment A and Treatment B equals 0
 - dashed vertical lines mark the observed t-statistic values used to define the two-tailed p-value region
 - red shaded tail regions represent the p-value for the two-tailed test $H_A:\mu_A-\mu_B\ne0$
+
+
+:::
+
+---
+
+### Independent Two-Sample t-Test: Example
+
+::: {style="font-size:0.6em"}
+
+```{r, echo=FALSE, fig.width=6, fig.height=4}
+library(tidyverse)
+
+t_stat <- -10.52
+df <- 38
+
+p_value <- 2 * pt(
+  abs(t_stat),
+  df = df,
+  lower.tail = FALSE
+)
+
+plot_df <- tibble(
+  x = seq(-14, 14, length.out = 2000),
+  density = dt(x, df = df)
+)
+
+shade_df <- plot_df |>
+  filter(x <= t_stat | x >= abs(t_stat))
+
+ggplot(plot_df, aes(x = x, y = density)) +
+
+  geom_line(linewidth = 1.2) +
+
+  geom_area(
+    data = shade_df,
+    aes(x = x, y = density),
+    alpha = 0.4
+  ) +
+
+  geom_vline(
+    xintercept = c(t_stat, abs(t_stat)),
+    linetype = "dashed",
+    linewidth = 1
+  ) +
+
+  annotate(
+    "text",
+    x = t_stat,
+    y = 0.03,
+    label = "t = -10.52",
+    hjust = 1.1,
+    size = 4
+  ) +
+
+  annotate(
+    "text",
+    x = abs(t_stat),
+    y = 0.03,
+    label = "t = 10.52",
+    hjust = -0.1,
+    size = 4
+  ) +
+
+  labs(
+    title = "Two-Tailed p-value from the t Distribution",
+    subtitle = expression(
+      "Independent two-sample t test: " ~
+      H[A] ~ ":" ~ mu[A] - mu[B] != 0
+    ),
+    x = "t statistic",
+    y = "Density"
+  ) +
+
+  theme_bw()
+```
+
+**Interpretation**
+
 - observed t-statistic is far from the center of the distribution in both directions
 - combined shaded probability area is extremely small $\rightarrow$ indicates that observing a difference in sample means this extreme would be very unlikely if the true population means were equal
 - small p-value [$p \approx 2.1\times10^{-12}$] provides strong statistical evidence that the population mean blood pressures differ between Treatment A and Treatment B
@@ -669,7 +887,7 @@ ggplot(plot_df, aes(x = x, y = density)) +
 
 ### Paired t-Test: Example
 
-::: {style="font-size:0.76em"}
+::: {style="font-size:0.6em"}
 
 **Background**
 
@@ -697,9 +915,9 @@ $H_A:\mu_d \ne 0$
 
 ### Paired t-Test: Example
 
-::: {style="font-size:0.76em"}
+::: {style="font-size:0.6em"}
 
-```{r}
+```{r, echo=FALSE}
 library(tidyverse)
 
 set.seed(29)
@@ -725,6 +943,27 @@ symptom_df <- tibble(
 head(symptom_df, 5)
 ```
 
+**Dataset Overview**
+
+- dataset is structured as paired observations (each patient measured twice)
+- goal: assess whether symptoms differ after treatment on average
+- statistical question: is the mean difference (before − after) different than 0 in the
+- each row represents one patient in a pre–post clinical study
+- `patient_id` identifies each individual patient in the sample
+- `symptom_before` : patient’s symptom severity score before treatment
+- `symptom_after` : patient’s symptom severity score after treatment
+
+
+:::
+
+---
+
+### Paired t-Test: Example
+
+::: {style="font-size:0.6em"}
+
+
+
 Perform Paired t Test
 
 ```{r}
@@ -743,6 +982,33 @@ t_result
 - `t.test()` : performs a paired t test
 - `symptom_before` and `symptom_after` contain measurements collected from the same patients
 - `paired = TRUE` : tells R to analyze within-patient differences rather than treating groups as independent
+
+
+:::
+
+---
+
+### Paired t-Test: Example
+
+::: {style="font-size:0.5em"}
+
+
+
+Perform Paired t Test
+
+```{r}
+t_result <- t.test(
+  symptom_df$symptom_before,
+  symptom_df$symptom_after,
+  paired = TRUE,
+  alternative = "two.sided"
+)
+
+t_result
+```
+
+**Code Explanation**
+
 - paired differences are defined as:
 
 $d = \text{before} - \text{after}$
@@ -751,7 +1017,7 @@ $d = \text{before} - \text{after}$
 
 $H_0:\mu_d = 0$
 
-- `alternative = "two.sided"` : specifies a two-tailed test:
+- `alternative = two.sided` : specifies a two-tailed test:
 
 $H_A:\mu_d \ne 0$
 
@@ -762,9 +1028,38 @@ $H_A:\mu_d \ne 0$
 
 ---
 
+### Paired t-Test: Example
+
+::: {style="font-size:0.5em"}
+
+
+
+Perform Paired t Test
+
+```{r}
+t_result <- t.test(
+  symptom_df$symptom_before,
+  symptom_df$symptom_after,
+  paired = TRUE,
+  alternative = "two.sided"
+)
+
+t_result
+```
+
+**Code Explanation**
+
+
+- p-value is calculated using both tails of the t distribution
+- `t_result` stores the test results, including the t-statistic, degrees of freedom, p-value, confidence interval, and mean paired difference
+
+:::
+
+---
+
 ### Perform Paired t Test
 
-::: {style="font-size:0.76em"}
+::: {style="font-size:0.6em"}
 
 ```{r}
 t_result <- t.test(
@@ -782,7 +1077,29 @@ t_result
 - average within-patient symptom score change is approximately 5.85 points
 - t-statistic [$t = 71.413$] indicates the observed mean paired difference is approximately 71 estimated standard errors away from the null hypothesis value of 0
 - positive t-statistic indicates symptom scores were generally higher before treatment than after treatment
-- because the alternative hypothesis is $H_A:\mu_d\ne0$, the p-value is calculated using both tails of the t distribution
+
+:::
+
+---
+
+### Perform Paired t Test
+
+::: {style="font-size:0.6em"}
+
+```{r}
+t_result <- t.test(
+  symptom_df$symptom_before,
+  symptom_df$symptom_after,
+  paired = TRUE,
+  alternative = "two.sided"
+)
+
+t_result
+```
+
+**Interpretation**
+
+
 - p-value $<2.2\times10^{-16}$ $\rightarrow$ indicates extremely strong evidence that the population mean within-patient symptom change differs from 0
 - 95% confidence interval [5.68, 6.02] indicates the population mean symptom score reduction is estimated to be between approximately 5.7 and 6.0 points
 
@@ -792,9 +1109,9 @@ t_result
 
 ### Paired t-Test: Example
 
-::: {style="font-size:0.76em"}
+::: {style="font-size:0.55em"}
 
-```{r}
+```{r, echo=FALSE, fig.width=6, fig.height=4}
 library(tidyverse)
 
 t_stat <- 18.24
@@ -857,24 +1174,301 @@ ggplot(plot_df, aes(x = x, y = density)) +
 - black curve represents the theoretical t distribution under the null hypothesis that the population mean paired difference equals 0
 - dashed vertical lines mark the observed t-statistic values used to define the two-tailed p-value region
 - shaded tail regions represent the p-value for the two-tailed paired t test $H_A:\mu_d\ne0$
+
+:::
+
+---
+
+### Paired t-Test: Example
+
+::: {style="font-size:0.55em"}
+
+```{r, echo=FALSE, fig.width=6, fig.height=4}
+library(tidyverse)
+
+t_stat <- 18.24
+df <- 19
+
+p_value <- 2 * pt(
+  abs(t_stat),
+  df = df,
+  lower.tail = FALSE
+)
+
+plot_df <- tibble(
+  x = seq(-22, 22, length.out = 2000),
+  density = dt(x, df = df)
+)
+
+shade_df <- plot_df |>
+  filter(x <= -abs(t_stat) | x >= abs(t_stat))
+
+ggplot(plot_df, aes(x = x, y = density)) +
+
+  geom_line(linewidth = 1.2) +
+
+  geom_area(
+    data = shade_df,
+    aes(x = x, y = density),
+    alpha = 0.4
+  ) +
+
+  geom_vline(
+    xintercept = c(-abs(t_stat), abs(t_stat)),
+    linetype = "dashed",
+    linewidth = 1
+  ) +
+
+  annotate(
+    "text",
+    x = abs(t_stat),
+    y = 0.03,
+    label = "t = 18.24",
+    hjust = -0.1,
+    size = 4
+  ) +
+
+  labs(
+    title = "Two-Tailed p-value from the t Distribution",
+    subtitle = expression(
+      "Paired t test: " ~
+      H[A] ~ ":" ~ mu[d] != 0
+    ),
+    x = "t statistic",
+    y = "Density"
+  ) +
+
+  theme_bw()
+```
+
+**Interpretation**
+
+
 - observed t-statistic is far from the center of the distribution, so the combined shaded probability area is extremely small $\rightarrow$ indicates that observing a mean paired difference this extreme would be very unlikely if the true population mean difference were actually 0
 - extremely small p-value provides strong statistical evidence that the population mean within-patient symptom change differs from 0
+
+:::
+
+---
+
+### Paired t-Test: Example
+
+::: {style="font-size:0.55em"}
+
+```{r, echo=FALSE, fig.width=6, fig.height=4}
+library(tidyverse)
+
+t_stat <- 18.24
+df <- 19
+
+p_value <- 2 * pt(
+  abs(t_stat),
+  df = df,
+  lower.tail = FALSE
+)
+
+plot_df <- tibble(
+  x = seq(-22, 22, length.out = 2000),
+  density = dt(x, df = df)
+)
+
+shade_df <- plot_df |>
+  filter(x <= -abs(t_stat) | x >= abs(t_stat))
+
+ggplot(plot_df, aes(x = x, y = density)) +
+
+  geom_line(linewidth = 1.2) +
+
+  geom_area(
+    data = shade_df,
+    aes(x = x, y = density),
+    alpha = 0.4
+  ) +
+
+  geom_vline(
+    xintercept = c(-abs(t_stat), abs(t_stat)),
+    linetype = "dashed",
+    linewidth = 1
+  ) +
+
+  annotate(
+    "text",
+    x = abs(t_stat),
+    y = 0.03,
+    label = "t = 18.24",
+    hjust = -0.1,
+    size = 4
+  ) +
+
+  labs(
+    title = "Two-Tailed p-value from the t Distribution",
+    subtitle = expression(
+      "Paired t test: " ~
+      H[A] ~ ":" ~ mu[d] != 0
+    ),
+    x = "t statistic",
+    y = "Density"
+  ) +
+
+  theme_bw()
+```
+
+**Interpretation**
 
 - black curve represents the theoretical t distribution under the null hypothesis that the population mean paired difference equals 0
 - dashed vertical lines mark the observed t-statistic values used to define the two-tailed p-value region
 - paired t test uses the alternative hypothesis: $H_A: \mu_{d} \neq 0$
+
+:::
+
+---
+
+### Paired t-Test: Example
+
+::: {style="font-size:0.55em"}
+
+```{r, echo=FALSE, fig.width=6, fig.height=4}
+library(tidyverse)
+
+t_stat <- 18.24
+df <- 19
+
+p_value <- 2 * pt(
+  abs(t_stat),
+  df = df,
+  lower.tail = FALSE
+)
+
+plot_df <- tibble(
+  x = seq(-22, 22, length.out = 2000),
+  density = dt(x, df = df)
+)
+
+shade_df <- plot_df |>
+  filter(x <= -abs(t_stat) | x >= abs(t_stat))
+
+ggplot(plot_df, aes(x = x, y = density)) +
+
+  geom_line(linewidth = 1.2) +
+
+  geom_area(
+    data = shade_df,
+    aes(x = x, y = density),
+    alpha = 0.4
+  ) +
+
+  geom_vline(
+    xintercept = c(-abs(t_stat), abs(t_stat)),
+    linetype = "dashed",
+    linewidth = 1
+  ) +
+
+  annotate(
+    "text",
+    x = abs(t_stat),
+    y = 0.03,
+    label = "t = 18.24",
+    hjust = -0.1,
+    size = 4
+  ) +
+
+  labs(
+    title = "Two-Tailed p-value from the t Distribution",
+    subtitle = expression(
+      "Paired t test: " ~
+      H[A] ~ ":" ~ mu[d] != 0
+    ),
+    x = "t statistic",
+    y = "Density"
+  ) +
+
+  theme_bw()
+```
+
+**Interpretation**
+
+- paired t test uses the alternative hypothesis: $H_A: \mu_{d} \neq 0$
 - observed t-statistic [t=18.24] is extremely far from the center of the distribution, indicating the observed mean paired difference is many estimated standard errors away from 0
 - shaded tail areas would represent the probability of observing a t-statistic this extreme or more extreme in either direction if the true population mean paired difference were actually 0
+
+:::
+
+---
+
+### Paired t-Test: Example
+
+::: {style="font-size:0.55em"}
+
+```{r, echo=FALSE, fig.width=6, fig.height=4}
+library(tidyverse)
+
+t_stat <- 18.24
+df <- 19
+
+p_value <- 2 * pt(
+  abs(t_stat),
+  df = df,
+  lower.tail = FALSE
+)
+
+plot_df <- tibble(
+  x = seq(-22, 22, length.out = 2000),
+  density = dt(x, df = df)
+)
+
+shade_df <- plot_df |>
+  filter(x <= -abs(t_stat) | x >= abs(t_stat))
+
+ggplot(plot_df, aes(x = x, y = density)) +
+
+  geom_line(linewidth = 1.2) +
+
+  geom_area(
+    data = shade_df,
+    aes(x = x, y = density),
+    alpha = 0.4
+  ) +
+
+  geom_vline(
+    xintercept = c(-abs(t_stat), abs(t_stat)),
+    linetype = "dashed",
+    linewidth = 1
+  ) +
+
+  annotate(
+    "text",
+    x = abs(t_stat),
+    y = 0.03,
+    label = "t = 18.24",
+    hjust = -0.1,
+    size = 4
+  ) +
+
+  labs(
+    title = "Two-Tailed p-value from the t Distribution",
+    subtitle = expression(
+      "Paired t test: " ~
+      H[A] ~ ":" ~ mu[d] != 0
+    ),
+    x = "t statistic",
+    y = "Density"
+  ) +
+
+  theme_bw()
+```
+
+**Interpretation**
+
+
 - tail probabilities are extremely small $\rightarrow$ p-value is small [p = < 2.2e-16]
 - provides statistical evidence that the average within-patient symptom score changed after treatment
 :::
 
 ---
 
-
 ### Summary
 
-::: {style="font-size:0.76em"}
+::: {style="font-size:0.6em"}
 
 - t-tests provide a statistical framework for determining whether an observed sample difference is large relative to ordinary sampling variability
 - t-statistic measures how far an observed estimate is from the null hypothesis value after accounting for uncertainty and variability in the data
@@ -888,7 +1482,7 @@ ggplot(plot_df, aes(x = x, y = density)) +
 
 ### Summary
 
-::: {style="font-size:0.76em"}
+::: {style="font-size:0.6em"}
 
 - different t-tests are used depending on the scientific design and structure of the data:
 
