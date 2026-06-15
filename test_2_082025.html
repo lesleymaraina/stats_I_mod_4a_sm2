@@ -1141,8 +1141,9 @@ mean difference
 </div>
 <p><strong>Interpretation</strong></p>
 <ul>
-<li>observed t-statistic is far from the center of the distribution, so the combined shaded probability area is extremely small <span class="math inline">\(\rightarrow\)</span> indicates that observing a mean paired difference this extreme would be very unlikely if the true population mean difference were actually 0</li>
-<li>extremely small p-value provides strong statistical evidence that the population mean within-patient symptom change differs from 0</li>
+<li>paired t test uses the alternative hypothesis: <span class="math inline">\(H_A: \mu_{d} \neq 0\)</span></li>
+<li>observed t-statistic [t=18.24] is extremely far from the center of the distribution, indicating the observed mean paired difference is many estimated standard errors away from 0</li>
+<li>shaded tail areas would represent the probability of observing a t-statistic this extreme or more extreme in either direction if the true population mean paired difference were actually 0</li>
 </ul>
 </div>
 </section>
@@ -1155,48 +1156,6 @@ mean difference
 <div>
 <figure>
 <p><img data-src="test_2_082025_files/figure-revealjs/unnamed-chunk-20-1.png" width="576"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><strong>Interpretation</strong></p>
-<ul>
-<li>black curve represents the theoretical t distribution under the null hypothesis that the population mean paired difference equals 0</li>
-<li>dashed vertical lines mark the observed t-statistic values used to define the two-tailed p-value region</li>
-<li>paired t test uses the alternative hypothesis: <span class="math inline">\(H_A: \mu_{d} \neq 0\)</span></li>
-</ul>
-</div>
-</section>
-<section class="slide level2">
-
-<h3 id="paired-t-test-example-8">Paired t-Test: Example</h3>
-<div style="font-size:0.55em">
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="test_2_082025_files/figure-revealjs/unnamed-chunk-21-1.png" width="576"></p>
-</figure>
-</div>
-</div>
-</div>
-<p><strong>Interpretation</strong></p>
-<ul>
-<li>paired t test uses the alternative hypothesis: <span class="math inline">\(H_A: \mu_{d} \neq 0\)</span></li>
-<li>observed t-statistic [t=18.24] is extremely far from the center of the distribution, indicating the observed mean paired difference is many estimated standard errors away from 0</li>
-<li>shaded tail areas would represent the probability of observing a t-statistic this extreme or more extreme in either direction if the true population mean paired difference were actually 0</li>
-</ul>
-</div>
-</section>
-<section class="slide level2">
-
-<h3 id="paired-t-test-example-9">Paired t-Test: Example</h3>
-<div style="font-size:0.55em">
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="test_2_082025_files/figure-revealjs/unnamed-chunk-22-1.png" width="576"></p>
 </figure>
 </div>
 </div>
