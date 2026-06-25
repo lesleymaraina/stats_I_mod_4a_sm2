@@ -17,18 +17,19 @@ execute:
 
 ### Lecture Overview
 ::: {style="font-size:0.6em"}
-- introduce the t-test framework for hypothesis testing with continuous data
 
-Motivation: 
+**Motivation**
 
-- many biomedical and clinical variables vary continuously across patients, including biomarker levels, tumor measurements, blood pressure, and symptom severity scores
+- certain research questions involve continuous outcomes [i.e: tumor size, blood pressure, and symptom severity scores] 
+- researchers aim to determine whether an observed mean or difference in means is large enough to reflect a true population effect rather than random sampling variability.
 
+**Lecture Concepts**:
 
-The lecture introduces:
+- when to use hypothesis tests for continuous outcomes
+- one-sample, independent two-sample, and paired t-tests
+- t-distribution and why it is used
+- t-statistics and p-values for evaluating evidence against the null hypothesis
 
-- t distribution
-- t-statistics and p-values
-- one-sample, independent two-sample, and paired t tests
 :::
 ---
 
